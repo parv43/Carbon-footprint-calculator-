@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Familjen+Grotesk:regular,500,600,700,italic,500italic,600italic,700italic" rel="stylesheet" />
+    <title>Carbon Footprint Calculator</title>
+
+    <style>
+        *{
+            font-family: grotesk;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #626567;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-label,
+        .form-input,
+        .calculate-button,
+        .reset-button,
+        .result-section,
+        .about-section {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            padding: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .calculate-button, .reset-button {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .calculate-button {
+            background-color: #27ae60;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .calculate-button:hover {
+            background-color: #219653;
+        }
+
+        .reset-button {
+            background-color: #e74c3c;
+            color: #fff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .reset-button:hover {
+            background-color: #c0392b;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ecf0f1;
+            display: none;
+        }
+
+        .result-text {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .about-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ecf0f1;
+            text-align: left;
+        }
+
+        .about-text {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 class="header-title">Carbon Footprint Calculator</h1>
+    </header>
+
+    <main class="main-container">
+        <section class="calculator-section" id="transportation">
+            <h2 class="section-title">Transportation</h2>
+            <form class="calculator-form">
+                <label class="form-label" for="fuelType">Select Fuel Type:</label>
+                <select class="form-input" id="fuelType">
+                    <option value="petrol">Petrol</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="ev">Electric Vehicle (EV)</option>
+                    <option value="cng">Compressed Natural Gas (CNG)</option>
+                </select>
+                <label class="form-label" for="vehicleType">Select Your Car:</label>
+                <select class="form-input" id="vehicleType">
+                    <option value="compact">Compact Car</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="truck">Truck</option>
+                </select>
+                <label class="form-label" for="transportationInput">Miles Driven:</label>
+                <input class="form-input" type="number" id="transportationInput" placeholder="Enter miles">
+            </form>
+        </section>
+
+        <section class="calculator-section" id="house">
+            <h2 class="section-title">House Energy Consumption</h2>
+            <form class="calculator-form">
+                <label class="form-label" for="houseInput">Electricity Usage:</label>
+                <input class="form-input" type="number" id="houseInput" placeholder="Enter kWh">
+            </form>
+        </section>
+
+        <section class="calculator-section" id="office">
+            <h2 class="section-title">Office Waste Generation</h2>
+            <form class="calculator-form">
+                <label class="form-label" for="officeInput">Waste Produced:</label>
+                <input class="form-input" type="number" id="officeInput" placeholder="Enter pounds">
+            </form>
+        </section>
+
+        <button class="calculate-button" id="calculateButton">Calculate Now</button>
+        <button class="reset-button" id="resetButton">Reset</button>
+
+        <section class="result-section" id="result">
+            <h2 class="section-title">Result</h2>
+            <p class="result-text">Your Total Carbon Footprint is: <span id="carbonFootprint">0</span> kg CO2e</p>
+        </section>
+
+        <section class="about-section" id="about">
+            <h2 class="section-title">About Us</h2>
+            <p class="about-text">We are a team of individuals passionate about environmental sustainability and reducing carbon footprints. Our goal is to provide you with a simple yet effective tool to calculate and understand your carbon impact. Make informed choices and contribute to a greener future!</p>
+            <p>Contact us at: <a href="mailto:parvsrivastava125@gmail.com"><img src="https://img.icons8.com/color/24/000000/gmail.png"/> parvsrivastava125@gmail.com</a></p>
+            <p>Team Members:</p>
+            <ul>
+                <li>Parv</li>
+                <li>Uttam</li>
+                <li>Nischit</li>
+                <li>Sarthak</li>
+                <li>Krish</li>
+                <li>Abhay</li>
+                <li>Avnish</li>
+                <li>Nishant</li>
+            </ul>
+            <p>Phone: 9336828814</p>
+            <p>Instagram: <a href="https://www.instagram.com/anshsrivastavallparvll" target="_blank"><img src="https://img.icons8.com/fluent/24/000000/instagram-new.png"/> anshsrivastavallparvll</a></p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">&copy; 2024 Carbon Footprint Calculator</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateButton = document.getElementById('calculateButton');
+            const resetButton = document.getElementById('resetButton');
+
+            calculateButton.addEventListener('click', function () {
+                const fuelType = document.getElementById('fuelType').value;
+                const vehicleType = document.getElementById('vehicleType').value;
+                const transportationValue = parseFloat(document.getElementById('transportationInput').value) || 0;
+                const houseValue = parseFloat(document.getElementById('houseInput').value) || 0;
+                const officeValue = parseFloat(document.getElementById('officeInput').value) || 0;
+                let emissionFactor;
+
+                // Assign emission factors based on the selected fuel type
+                switch (fuelType) {
+                    case 'petrol':
+                        emissionFactor = 0.25; // Adjust this value based on actual emission factors
+                        break;
+                    case 'diesel':
+                        emissionFactor = 0.28; // Adjust this value based on actual emission factors
+                        break;
+                    case 'ev':
+                        emissionFactor = 0.05; // Adjust this value based on actual emission factors
+                        break;
+                    case 'cng':
+                        emissionFactor = 0.20; // Adjust this value based on actual emission factors
+                        break;
+                    default:
+                        emissionFactor = 0.25; // Default to petrol if an invalid option is selected
+                        break;
+                }
+
+                const totalCarbonFootprint = transportationValue * emissionFactor + houseValue * 0.5 + officeValue * 0.3;
+                document.getElementById('carbonFootprint').textContent = totalCarbonFootprint.toFixed(2);
+                document.getElementById('result').style.display = 'block';
+            });
+
+            resetButton.addEventListener('click', function () {
+                document.getElementById('fuelType').value = 'petrol';
+                document.getElementById('vehicleType').value = 'compact';
+                document.getElementById('transportationInput').value = '';
+                document.getElementById('houseInput').value = '';
+                document.getElementById('officeInput').value = '';
+                document.getElementById('result').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
